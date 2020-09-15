@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 
-my @passwd = `cat /etc/passwd`;
-
-print "USER UID GID HOME SHELL\n";
-foreach my $line (@passwd)
-{
-	chomp ($line);
-	($user,$pass,$uid,$gid,$descr,$home,$shell) = split (/:/,$line);
-	if ($shell =~ /bash/)
+$archivo_analizar = "mails.txt";
+open(input_file,'<',$archivo_analizar) or die("Error al leer archivo.\n");
+foreach $email (<input_file>)
+{   
+	chomp($email);
+    if ( $email =~ /([a-zA-Z]+)\@([a-zA-Z]+)+(\.([a-zA-Z]+))*\.(com/mx|org)/)
 	{
-		print "$user $uid $gid $home $shell\n";
+	    print "$email\n";
+	    
 	}
 }
+close(input_file);
