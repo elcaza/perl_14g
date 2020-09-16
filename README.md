@@ -33,7 +33,7 @@
 5. Calculadora 100tifika
 6. Bot IRC
 7. Vigenere
-8. SSH fuerza bruta
+8. SSH fuerza bruta [ok]
 
 ## Proyecto
 + WAF
