@@ -1,0 +1,23 @@
+
+[*]Trying bigwig
+  [!]password no válido :c
+
+[*]Trying bihari
+  [!]password no válido :c
+
+[*]Trying biharmonic
+  [!]password no válido :c
+
+[*]Trying bijection
+  [!]password no válido :c
+
+[*]Trying bijective
+  [!]password no válido :c
+
+[*]Trying un_password_valido
+==========================
+
+PASSWORD encontrado!
+  user:usuario_bonito
+  password:un_password_valido
+
