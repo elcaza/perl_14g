@@ -31,9 +31,10 @@
 3. Graficas
 4. Crawler
 5. Calculadora 100tifika
-6. Bot IRC
+6. Bot IRC [ok]
 7. Vigenere
 8. SSH fuerza bruta [ok]
+9. (Opcional) Ransomware
 
 ## Proyecto
 + WAF
