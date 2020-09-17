@@ -9,7 +9,7 @@
 6. Spam sites 3 
 7. Spam sites 4 
 8. Spam sites 5 
-9. otro 
+9. Carpetas [ok] 
 10. /etc/passwd [ok]
 11. emails [ok]
 12. Fecha 1 (2020-09-10 19:06:08) [ok]
@@ -32,7 +32,7 @@
 4. Crawler
 5. Calculadora 100tifika
 6. Bot IRC [ok]
-7. Vigenere
+7. Vigenere [ok]
 8. SSH fuerza bruta [ok]
 9. (Opcional) Ransomware
 
