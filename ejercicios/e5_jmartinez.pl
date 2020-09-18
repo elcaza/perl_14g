@@ -1,39 +1,26 @@
-#!/usr/bin/env perl
-
+#!/usr/bin/perl
+use LWP::UserAgent ();
 use strict;
 use warnings;
-use feature 'say';
-use HTTP::Tiny;
+ 
+$navegador = LWP::UserAgent->new(timeout => 10);
+$navegador->env_proxy;
 
-# archivo a leer
-my $file = 'sites.tmx';
-my $Client = HTTP::Tiny->new();
+$input_file='sites.tmx';
+$output_file='active_sites.txt';
+open(INPUT_FILE,'<',$input_file) or die("Error\n");
 
-
-open my $urls, $file or die "Could not open $file: $!";
-
-while( my $line = <$urls>)  {     
-    my $response = $Client->get($line);
-    if ($response->{status} == 200){
-        print "200\n";
-    } else {
-        print "no";
-    }
-    say $line, ": ", $response->{status};
+foreach $url (<INPUT_FILE>)
+{   
+	chomp($url);
+	$response = $navegador->get($url);
+	if ($response->is_success) 
+	{
+		open(OUT_FILE,'>>',$output_file) or die("Error\n");
+		print $url,"\n";
+		print OUT_FILE $url,"\n";
+		close(OUT_FILE);
+	}
+	else {die $response;}
 }
-
-close $urls;
-
-
-# my $Client = HTTP::Tiny->new();
-
-# my @urls = (
-#     'http://www.yahoo.com',
-#     'https://www.google.com',
-#     'http://nosuchsiteexists.com',
-# );
-
-# for my $url (@urls) {
-#     my $response = $Client->get($url);
-#     say $url, ": ", $response->{status};
-# }
+close(INPUT_FILE);
