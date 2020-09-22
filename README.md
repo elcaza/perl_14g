@@ -28,8 +28,8 @@
 
 ## Practicas
 1. Nmap [OK]
-2. Reportes 
-3. Graficas
+2. Reportes [OK]
+3. Graficas [OK]
 4. Crawler [OK]
 5. Calculadora 100tifika
 6. Bot IRC [OK]
