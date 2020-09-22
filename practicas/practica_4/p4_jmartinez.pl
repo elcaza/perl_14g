@@ -1,43 +1,60 @@
 #!/usr/bin/perl
+use WWW::Mechanize ();
 
-use strict;
-use warnings;
+%urls;
+$sites_file = 'sites.txt';
+$crawler = WWW::Mechanize->new();
 
-use WWW::Mechanize;
+open(INPUT_FILE,'<',$sites_file) or die("Error.\n");
 
-my $mech = WWW::Mechanize->new;
-$mech->get('https://google.com');
+foreach $url (<INPUT_FILE>)
+{   
+	chomp($url);
+	@refs = [];
+	$crawler->get( $url );
+	@links = $crawler->links();
+	
+    for $link ( @links )
+	{
+   		$tmp = $link->url;
+   		$tmp = (split / /, $tmp)[0];
+   		push @{ $urls{$url} }, $tmp;
+	}
+}
+close(INPUT_FILE);
 
-foreach my $link ($mech->links) {
-    my $text  = $link->text;
-    my $url   = $link->url;
-    my $title = $link->attrs->{title};
+`touch "report.txt"`;
 
-    print "$text, $url, $title\n"
+open(OUTPUT_FILE,'>',"report.txt") or die("Error.\n");
+foreach $link (%urls) {
+	if (not $link =~ m/ARRAY.*/){
+		print OUTPUT_FILE "$link\n";
+		@values = @{ $urls{$link} };
+		
+        foreach my $value (@values) {
+			print OUTPUT_FILE "\t$value\n";
+			if (not $value =~ m/^[\/|#]/){
+				$crawler = WWW::Mechanize->new();
+				@links = ();
+				@sublinks = ();
+				$crawler->get( $value );
+				@links = $crawler->links();
+				
+                for my $link ( @links )
+				{
+			   		$tmp = $link->url;
+			   		$tmp = (split / /, $tmp)[0];
+			   		push @sublinks, $tmp;
+				}	
+
+				foreach my $value (@sublinks) {
+					if (not $value =~ m/^data:text.*/){
+						print OUTPUT_FILE "\t\t$value\n";
+					}
+				}
+			}
+		}
+	}
 }
 
-
-# use URI;
-# use Web::Scraper;
-# use Encode;
-
-# $expresion = 'https://www.google.com/search?q=sin(2)-2';
- 
-# # First, create your scraper block
-# my $authors = scraper {
-#     process "#cwos", date => 'TEXT';
-# };
-
-# print "$authors->date"; 
-
-# # my $res = $authors->scrape( URI->new("$expresion") );
-# # print $res;
- 
-# # # iterate the array 'authors'
-# # for my $author (@{$res->{authors}}) {
-# #     # output is like:
-# #     # Andy Adler      http://search.cpan.org/~aadler/
-# #     # Aaron K Dancygier       http://search.cpan.org/~aakd/
-# #     # Aamer Akhter    http://search.cpan.org/~aakhter/
-# #     print Encode::encode("utf8", "$author->{fullname}\t$author->{uri}\n");
-# # }
+close(OUTPUT_FILE);

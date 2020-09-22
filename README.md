@@ -35,7 +35,7 @@
 6. Bot IRC [OK]
 7. Vigenere [OK]
 8. SSH fuerza bruta [OK]
-9. (Opcional) Ransomware
+9. (Opcional) Ransomware [OK]
 10. Keylogger [OK]
 
 ## Proyecto
