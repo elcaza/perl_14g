@@ -1,88 +1,54 @@
-#!/usr/bin/perl
-# Calculadora 2
+use warnings;
+use strict;
 
-sub SUMAR{
-	print "Ingrese primer operando: \n";
-	$uno = <STDIN>;
-	chomp($uno);
-	print "Ingrese segundo operando: \n";
-	$dos = <STDIN>;
-	chomp($dos);
-	print "Resultado: ",$uno+$dos,"\n";
-	#Guardar en historial
-	$historial{$count} = $uno+$dos;
-	$count ++;
-}
+my $num1;
+my $num2;
+my $option;
 
-sub RESTAR{
-	print "Ingrese primer operando: \n";
-	$uno = <STDIN>;
-	chomp($uno);
-	print "Ingrese segundo operando: \n";
-	$dos = <STDIN>;
-	chomp($dos);
-	print "Resultado: ",$uno-$dos,"\n";
-	#Guardar en historial
-	$historial{$count} = $uno-$dos;
-	$count ++;
-}
+principal();
+sub principal{
+	print "Menu:\n";
+	print "1 Suma \n";
+	print "2 Resta \n";
+	print "3 Division \n";
+	print "4 Multiplicación\n";
 
-sub MULTIPLICAR{
-	print "Ingrese primer operando: \n";
-	$uno = <STDIN>;
-	chomp($uno);
-	print "Ingrese segundo operando: \n";
-	$dos = <STDIN>;
-	chomp($dos);
-	print "Resultado: ",$uno*$dos,"\n";
-	#Guardar en historial
-	$historial{$count} = $uno*$dos;
-	$count ++;	
-}
-
-sub DIVIDIR{
-	print "Ingrese primer operando: \n";
-	$uno = <STDIN>;
-	chomp($uno);
-	print "Ingrese segundo operando: \n";
-	$dos = <STDIN>;
-	chomp($dos);
-	print "Resultado: ",$uno/$dos,"\n";
-	#Guardar en historial
-	$historial{$count} = $uno/$dos;
-	$count ++;
-}
-
-sub HISTORIAL{
-	foreach $key (sort keys %historial) 
-	{
-	    print "$key => $historial{$key}\n";
+	chomp ($option = <STDIN>);
+	chomp ($num1 = <STDIN>);
+	chomp ($num2 = <STDIN>);
+	
+	if($option == 1){
+		suma();
+	}
+	if($option == 2){
+		resta();
+	}
+	if($option == 3){
+		division();
+	}
+	if($option == 4){
+		multiplicacion();
+	}else{
+		print "no valido";
 	}
 }
 
-$count = 1;
-%historial = {};
-do{
-	#Se imprime el menú
-	print "..::Calculadora simple::..\n"," -------- Opciones: --------\n";
-	print "---------------------------\n- SUMAR\n- RESTAR\n- MULTIPLICAR\n- DIVIDIR\n- HISTORIAL\n- SALIR\n---------------------------\n";
-	$line = <STDIN>;
-	chomp($line);
-	if (uc($line) eq "SUMAR"){
-		SUMAR();
-	}elsif (uc($line) eq "RESTAR"){
-		RESTAR();
+sub suma{
+	print $num1+$num2;
+}
+
+sub resta{
+	print $num1-$num2;
+}
+
+sub division{
+	if($num2==0){
+		print "\nNo puedes dividir entre 0";
+	}else{
+		print $num1/$num2;
 	}
-	elsif (uc($line) eq "MULTIPLICAR"){
-		MULTIPLICAR();
-	}
-	elsif (uc($line) eq "DIVIDIR"){
-		DIVIDIR();
-	}
-	elsif (uc($line) eq "HISTORIAL"){
-		HISTORIAL();
-	}
-	elsif (uc($line) ne "SALIR"){
-		print "Operación no válida\n";
-	}
-}while(uc($line) ne "SALIR");
+}
+
+sub multiplicacion{
+	print $num1*$num2;
+}
